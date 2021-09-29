@@ -46,7 +46,7 @@ public class SimpleLocators {
                 elementWithTwoClasses = tmp;
             }
         }
-        Assertions.assertTrue(elementWithTwoClasses != null, "Element with this two phrase class element NOT FOUND");
+        Assertions.assertNotNull(elementWithTwoClasses, "Element with this two phrase class element NOT FOUND");
     }
     /*
     By.id
@@ -65,7 +65,7 @@ public class SimpleLocators {
     public void findElementByName(){
         driver.navigate().to("https://the-internet.herokuapp.com/login");
         WebElement input = driver.findElement(By.name("username"));
-        Assertions.assertTrue(input != null, "Element with this name NOT FOUND");
+        Assertions.assertNotNull(input, "Element with this name NOT FOUND");
     }
     /*
     By.linkText
@@ -96,14 +96,26 @@ public class SimpleLocators {
         WebElement input = driver.findElement(By.xpath("//input[@id='username']"));
         Assertions.assertTrue(input.isDisplayed(), "Element with this name NOT FOUND");
     }
-    /*
-    By.xpath
-    xpath combined with two html elemnts with attributes
-    */
     @Test
     public void findElementByXpath2(){
+        driver.navigate().to("https://the-internet.herokuapp.com/dynamic_loading");
+        WebElement example1 = driver.findElement(By.xpath("//a[@href='/dynamic_loading/1']"));
+        Assertions.assertTrue(example1.isDisplayed(), "Element with this name NOT FOUND");
+    }
+    @Test
+    public void findElementByXpath3(){
+        driver.navigate().to("https://the-internet.herokuapp.com/dynamic_loading");
+        WebElement forkMe = driver.findElement(By.xpath("//img[@alt='Fork me on GitHub']"));
+        Assertions.assertTrue(forkMe.isDisplayed(), "Element with this name NOT FOUND");
+    }
+    /*
+    By.xpath
+    xpath combined with two html tags (div, input, etc.) with attributes (id, class, etc.) with values (username, etc.)
+    */
+    @Test
+    public void findElementByXpath4(){
         driver.navigate().to("https://the-internet.herokuapp.com/login");
-        WebElement input = driver.findElement(By.xpath(".//div[@class='large-6 small-12 columns']//input[@id='username']"));
+        WebElement input = driver.findElement(By.xpath("//div[@class='large-6 small-12 columns']//input[@id='username']"));
         Assertions.assertTrue(input.isDisplayed() , "Element with this name NOT FOUND");
     }
     /*
@@ -111,9 +123,9 @@ public class SimpleLocators {
     using starts-with
     */
     @Test
-    public void findElementByXpath3(){
+    public void findElementByXpath5(){
         driver.navigate().to("https://the-internet.herokuapp.com/login");
-        WebElement input = driver.findElement(By.xpath(".//div[starts-with(@class, 'large-6')]"));
+        WebElement input = driver.findElement(By.xpath("//div[starts-with(@class, 'large-6')]"));
         Assertions.assertTrue(input.isDisplayed() , "Element with this name NOT FOUND");
     }
 
